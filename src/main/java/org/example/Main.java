@@ -27,9 +27,15 @@ public class Main {
     }
 
     @PostMapping("/postpic")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("clientIp") String clientIp,
+            @RequestParam("city") String city,
+            @RequestParam("region") String region,
+            @RequestParam("country") String country
+    ) {
 
-        // Creare la cartella uploads se non esiste
+        // Crea la cartella uploads se non esiste
         File directory = new File(UPLOAD_DIR);
         if (!directory.exists()) {
             directory.mkdir();
@@ -44,6 +50,12 @@ public class Main {
         try {
             // Salvare il file
             Files.write(filePath, file.getBytes());
+            System.out.println("""
+                    ip : %s
+                    city : %s
+                    region : %s
+                    country : %s
+                    """.formatted(clientIp,city,region,country));
             return new ResponseEntity<>("File uploaded successfully: " + fileName, HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>("File upload failed: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

