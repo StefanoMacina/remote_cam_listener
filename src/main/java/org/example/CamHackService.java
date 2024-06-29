@@ -28,10 +28,11 @@ public class CamHackService {
         }
     }
 
-    public void getClientInfo(String clientIp,
-                              String city,
-                              String region,
-                              String country){
+    public void getClientInfo(ClientInfo clientInfo){
+        String clientIp = clientInfo.getClientIp();
+        String city = clientInfo.getCity();
+        String region = clientInfo.getRegion();
+        String country = clientInfo.getCountry();
         System.out.printf("""
                 target ip : %s,
                 target city : %s,
