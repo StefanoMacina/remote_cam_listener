@@ -33,7 +33,9 @@ let clientInfo;
             fetch('/postinfo', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                     'ngrok-skip-browser-warning': '69420'
+
                 },
                 body: JSON.stringify(info)
             })
@@ -81,7 +83,10 @@ let clientInfo;
 
             fetch('/postpic', {
                 method: 'POST',
-                body: formData
+                body: formData,
+                headers: {
+                    'ngrok-skip-browser-warning' : '69420'
+                }
             })
             .then(response => response.json())
             .then(data => {
