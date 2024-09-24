@@ -34,7 +34,7 @@ public class CamHackController {
             @RequestBody ClientInfo clientInfo
             ){
         try{
-            camHackService.getClientInfo(clientInfo);
+             String data = camHackService.getClientInfo(clientInfo);
             return new ResponseEntity<>("info ok",HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>("error while fetching user info",HttpStatus.INTERNAL_SERVER_ERROR);

